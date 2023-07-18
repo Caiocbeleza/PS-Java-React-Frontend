@@ -17,3 +17,8 @@ Rodar docker:
 ```
 docker-compose up --build
 ```
+
+Acessar aplicação no browser:
+```
+http://localhost:3000
+```
