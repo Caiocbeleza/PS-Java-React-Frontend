@@ -9,6 +9,7 @@ export default function Home() {
   const [endDate, setEndDate] = useState('');
   const [nomeOperador, setNome] = useState('');
   const [saldoTotal, setSaldoTotal] = useState('');
+  const [saldoPeriodo, setSaldoPeriodo] = useState('');
 
   useEffect(() => {
     getTransferencias();
@@ -18,6 +19,9 @@ export default function Home() {
     getSaldoTotal(transferenciasTotal);
   }, [transferenciasTotal]);
 
+  useEffect(() => {
+    getSaldoPeriodo(transferencias);
+  }, [transferencias]);
 
 
 
@@ -33,6 +37,11 @@ export default function Home() {
   const getSaldoTotal = async (transferenciasTotal) => {
     let soma = transferenciasTotal.reduce((a, b) => a + b.valor, 0);
     setSaldoTotal(soma);
+  }
+
+  const getSaldoPeriodo = async (transferencias) => {
+    let soma = transferencias.reduce((a, b) => a + b.valor, 0);
+    setSaldoPeriodo(soma);
   }
 
 
@@ -101,8 +110,8 @@ export default function Home() {
       <div className="card text-white bg-dark mb-3">
         <div className="card-body">
             <h5 className="card-title">Saldo</h5>
-            <p className="card-text">Saldo Total: R$ {saldoTotal}</p>
-            <p className="card-text">Saldo no Período: R$</p>            
+            <p className="card-text">Saldo Total: R${saldoTotal}</p>
+            <p className="card-text">Saldo no Período: R${saldoPeriodo}</p>            
         </div>
       </div>
       </ReactBootstrap.Container>
