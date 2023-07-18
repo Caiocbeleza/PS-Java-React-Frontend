@@ -16,6 +16,10 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
+    getTransferenciasFiltros();
+  }, []);
+
+  useEffect(() => {
     getSaldoTotal(transferenciasTotal);
   }, [transferenciasTotal]);
 
