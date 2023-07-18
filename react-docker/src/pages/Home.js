@@ -5,9 +5,9 @@ import * as ReactBootstrap from 'react-bootstrap';
 export default function Home() {
   const [transferencias, setTransferencias] = useState([]);
   const [transferenciasTotal, setTransferenciasTotal] = useState([]);
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
-  const [nomeOperador, setNome] = useState('');
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+  const [nomeOperador, setNome] = useState(null);
   const [saldoTotal, setSaldoTotal] = useState('');
   const [saldoPeriodo, setSaldoPeriodo] = useState('');
 
@@ -66,6 +66,17 @@ export default function Home() {
     getTransferenciasFiltros();
   };
 
+  function formatDate(date){
+    const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+            const formattedDate = new Date(date).toLocaleDateString('en-US', options);
+
+            // Split the formatted date into day, month, and year parts
+            const [month, day, year] = formattedDate.split('/');
+
+    return `${day}/${month}/${year}`;
+
+  }
+
   return (
     <div className="app-container">
       <div className="filters-container">
@@ -98,7 +109,7 @@ export default function Home() {
               type="text"
               className="form-control"
               value={nomeOperador}
-              onChange={(e) => setNome(e.target.value)}
+              onChange={(e) => setNome(e.target.value === '' ? null : e.target.value)}
               placeholder="Nome do Operador"
             />
           </div>          
@@ -129,7 +140,7 @@ export default function Home() {
           <tbody>
             {transferencias.map((item) => (
               <tr key={item.id}>
-                <td>{item.dt}</td>
+                <td>{formatDate(item.dt)}</td>
                 <td>R${item.valor}</td>
                 <td>{item.tipo}</td>
                 <td>{item.nomeOperador}</td>
