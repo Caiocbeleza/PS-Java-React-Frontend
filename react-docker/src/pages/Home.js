@@ -36,12 +36,14 @@ export default function Home() {
 
   const getSaldoTotal = async (transferenciasTotal) => {
     let soma = transferenciasTotal.reduce((a, b) => a + b.valor, 0);
-    setSaldoTotal(soma);
+    let fixed = soma.toFixed(2);
+    setSaldoTotal(fixed);
   }
 
   const getSaldoPeriodo = async (transferencias) => {
     let soma = transferencias.reduce((a, b) => a + b.valor, 0);
-    setSaldoPeriodo(soma);
+    let fixed = soma.toFixed(2);
+    setSaldoPeriodo(fixed);
   }
 
 
