@@ -1,0 +1,13 @@
+version: "3.8"
+services:
+  react-docker:
+    build: .
+    container_name: react_c
+    ports:
+      - '3000:3000'
+    stdin_open: true
+    tty: true
+
+
+  
+
