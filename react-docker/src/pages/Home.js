@@ -4,6 +4,7 @@ import * as ReactBootstrap from 'react-bootstrap';
 
 export default function Home() {
   const [transferencias, setTransferencias] = useState([]);
+  const [transferenciasTotal, setTransferenciasTotal] = useState([]);
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [nomeOperador, setNome] = useState('');
@@ -14,8 +15,8 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    getSaldoTotal(transferencias);
-  }, [transferencias]);
+    getSaldoTotal(transferenciasTotal);
+  }, [transferenciasTotal]);
 
 
 
@@ -23,14 +24,14 @@ export default function Home() {
   const getTransferencias = async () => {
     try {
       const response = await axios.get("http://localhost:8080/transferencias");
-      setTransferencias(response.data);
+      setTransferenciasTotal(response.data);
     } catch (error) {
       console.error('Erro ao obter dados da API:', error);
     }
   };
 
-  const getSaldoTotal = async (transferencias) => {
-    let soma = transferencias.reduce((a, b) => a + b.valor, 0);
+  const getSaldoTotal = async (transferenciasTotal) => {
+    let soma = transferenciasTotal.reduce((a, b) => a + b.valor, 0);
     setSaldoTotal(soma);
   }
 
@@ -120,7 +121,7 @@ export default function Home() {
             {transferencias.map((item) => (
               <tr key={item.id}>
                 <td>{item.dt}</td>
-                <td>{item.valor}</td>
+                <td>R${item.valor}</td>
                 <td>{item.tipo}</td>
                 <td>{item.nomeOperador}</td>
               </tr>
